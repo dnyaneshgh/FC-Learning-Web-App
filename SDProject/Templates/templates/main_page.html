@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Learning</title>
+    <style>
+        @font-face {
+            font-family: 'Castellar';
+            src: url('Castellar.ttf'); /* Ensure this path is correct */
+        }
+        @font-face {
+            font-family: 'Footlight MT Light';
+            src: url('FootlightMTLight.ttf'); /* Ensure this path is correct */
+        }
+
+        body {
+            background: linear-gradient(45deg, #8bb3dc, #665de0);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0; /* Ensure no margin causes issues */
+            height: 98vh; /* Ensure gradient covers the full height */
+        }
+        h1 {
+            font-family: 'Arial Rounded MT', serif;
+            color: rgb(179, 105, 224);
+            
+            padding: 10px;
+            position: absolute;
+            top: -20px;
+            left: 60px;
+            font-size: 60px;
+            text-shadow: -1px -1px 0 #000,  
+                          1px -1px 0 #000,
+                         -1px  1px 0 #000,
+                          1px  1px 0 #000;
+        }
+        h2 {
+            font-family: 'Candara', sans-serif;
+            font-size: 35px;
+            color: black;
+            margin-top: 35px; /* Adjust this value to position below the title */
+        }
+        h3 {
+            font-family: 'Candara', sans-serif;
+            font-size: 23px;
+            color: rgb(40, 8, 40);
+        }
+        .button {
+            font-family: 'Arial Rounded MT', sans-serif;
+            font-weight: 1000 ;
+            margin: 5px;
+            padding: 20px;
+            background-color: #8a4ff8;
+            color: rgb(40, 8, 40);
+            border: rgb(40, 8, 40);
+            border: 2px solid ;
+            font-size: 22px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+        .top-right-button {
+            font-family: 'Roboto', sans-serif;
+            font-weight: bold ;
+            margin: 10px;
+            padding: 15px;
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+        .container {
+            margin-top: 100px; /* Adjust this value to position below the title */
+        }
+    </style>
+</head>
+<body>
+    <h1>FC Learning...</h1>
+    <a class="top-right-button" href="/process"><span>Find the Process Here</span></a>
+    <h2>LEARN THE EASY WAY!</h2>
+    <h3>CREATE | SAVE | REVISE</h3>
+    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning" style="width: 350px; height: auto;">
+    <div class="container">
+        <a class="button" href="create_set">Create Flashcard</a>
+        <a class="button" href="select_set">Find Flashcard Set</a>
+    </div>
+</body>
+</html>
