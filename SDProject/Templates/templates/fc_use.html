@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Use</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #8bb3dc, #665de0);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0; /* Ensure no margin causes issues */
+            height: 98vh; /* Ensure gradient covers the full height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .button {
+            font-family: 'Arial Rounded MT', sans-serif;
+            font-weight: 1000;
+            margin: 10px;
+            padding: 20px;
+            background-color: #8a4ff8;
+            color: rgb(40, 8, 40);
+            border: rgb(40, 8, 40);
+            border: 2px solid;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+        .input-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px; /* Add some space below the input field */
+        }
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 300px; /* Adjust width as needed */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        img {
+            width: 300px; /* Specify width */
+            height: 200px; /* Specify height */
+            object-fit: cover; /* Ensure the image covers the specified dimensions */
+            margin-bottom: 20px; /* Space below the image */
+        }
+        h2 {
+            font-family: 'Candara', sans-serif;
+            font-size: 35px;
+            color: black;
+            margin-top: 35px; /* Adjust this value to position below the title */
+        }
+        h3 {
+            font-family: 'Candara', sans-serif;
+            font-size: 23px;
+            color: rgb(40, 8, 40);
+        }
+        .button-container {
+            width: 100%; 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 0 20px;
+        }
+        .small-button {
+            font-size: 16px;
+            padding: 10px;
+            margin: 20px; /* Reduce margin */
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
+    <h1>Flashcard {{ current_index + 1 }} of {{ total_cards }}</h1>
+    <h3>{{ flashcard.question }}</h3>
+    <div class="input-container">
+        <form method="post" action="{{ url_for('fc_use', index=current_index) }}">
+            <input type="text" name="answer" placeholder="Enter your answer">
+            <button class="button" type="submit" style="margin-left: 10px;">Submit</button>
+        </form>
+    </div>
+    <button class="button" onclick="showHint()">Show Hint</button>
+    <p id="hint" style="display:none;">{{ flashcard.hint }}</p>
+    <div class="button-container">
+        <a class="button small-button" href="{{ url_for('fc_use', index=prev_index) }}" style="font-size: 14px;">Previous</a>
+        <a class="button small-button" href="{{ url_for('fc_use', index=next_index) }}" style="font-size: 14px;">Next</a>
+    </div>
+    <a class="button small-button" href="{{ url_for('main_page') }}" style="margin-top: 20px; font-size: 12px;">Back to Home</a>
+    <script>
+        function showHint() {
+            document.getElementById('hint').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

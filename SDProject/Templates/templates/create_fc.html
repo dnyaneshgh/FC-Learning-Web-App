@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Flashcard</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #8bb3dc, #665de0);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0; /* Ensure no margin causes issues */
+            height: 98vh; /* Ensure gradient covers the full height */
+        }
+        .button {
+            margin: 10px;
+            padding: 10px;
+            background-color: #8a4ff8;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none; /* Remove underline */
+            border-radius: 5px; /* Optional: Round corners */
+        }
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        input[type="text"] {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+            width: 300px; /* Adjust width as needed */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .bottom-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        img {
+            width: 300px; /* Specify width */
+            height: 200px; /* Specify height */
+            object-fit: cover; /* Ensure the image covers the specified dimensions */
+            margin-bottom: 20px; /* Space below the image */
+        }
+        h3 {
+            font-family: 'Candara', sans-serif;
+            font-size: 23px;
+            color: rgb(40, 8, 40);
+            margin-top: 20px; /* Optional: Space above the heading */
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
+    <h1>Create Flashcard {{ flashcard_count }}</h1>
+    <h3>Enter your question, answer, and hint (optional)</h3>
+    <form method="post" action="{{ url_for('create_fc') }}" class="input-container">
+        <input type="text" name="question" placeholder="Enter question" required>
+        <input type="text" name="answer" placeholder="Enter answer" required>
+        <input type="text" name="hint" placeholder="Enter hint">
+        <button class="button" type="submit">Save</button>
+    </form>
+    <a class="button bottom-button" href="{{ url_for('main_page') }}">Back to Home</a>
+</body>
+</html>

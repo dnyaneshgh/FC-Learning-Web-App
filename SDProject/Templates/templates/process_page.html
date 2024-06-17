@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process Page</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #8bb3dc, #665de0);
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            margin: 0; /* Ensure no margin causes issues */
+            height: 100vh; /* Ensure gradient covers the full height */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: left;
+        }
+        h1 {
+            font-family: 'Candara', sans-serif;
+            font-size: 35px;
+            color: rgb(40, 8, 40);
+            margin-bottom: 20px;
+        }
+        p {
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: rgb(40, 8, 40);
+            margin-bottom: 10px;
+        }
+        .button {
+            font-family: 'Arial Rounded MT', sans-serif;
+            font-weight: 1000;
+            margin: 10px;
+            padding: 20px;
+            background-color: #8a4ff8;
+            color: rgb(40, 8, 40);
+            border: rgb(40, 8, 40);
+            border: 2px solid;
+            font-size: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            border-radius: 15px;
+        }
+        .small-button {
+            font-size: 12px;
+            padding: 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>Step-by-Step Process</h1>
+        <p>1. Start by clicking on the "Create Set" button.</p>
+        <p>2. Enter a relevant name for your set.</p>
+        <p>3. Save the set.</p>
+        <p>4. Enter the number of questions for the set, along with their respective answers and optional hints, then save.</p>
+        <p>5. Use the "Find Set" button to locate your saved set.</p>
+        <p>6. Click on the desired set to open it.</p>
+        <p>7. This will take you to the flashcard view, where cards are shown one by one.</p>
+        <p>8. If you saved any hints, click the "Hint" button to view them.</p>
+        <p>9. Navigate through the questions using the "Next" or "Previous" buttons.</p>
+        <p>10. To return to the home page, click the "Back to Home" button.</p>
+    </div>
+    <a class="button small-button" href="{{ url_for('main_page') }}" style="margin-top: 20px;">Back to Home</a>
+</body>
+</html>
