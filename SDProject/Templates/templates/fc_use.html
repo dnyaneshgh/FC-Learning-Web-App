@@ -72,11 +72,17 @@
             padding: 10px;
             margin: 20px; /* Reduce margin */
         }
+        .message {
+            font-family: 'Candara', sans-serif;
+            font-size: 20px;
+            color: red; /* You can change the color based on the message */
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
-    <h1>Flashcard {{ current_index + 1 }} of {{ total_cards }}</h1>
+    <h1> {{ topic }}</h1>
     <h3>{{ flashcard.question }}</h3>
     <div class="input-container">
         <form method="post" action="{{ url_for('fc_use', index=current_index) }}">
@@ -84,6 +90,9 @@
             <button class="button" type="submit" style="margin-left: 10px;">Submit</button>
         </form>
     </div>
+    {% if message %}
+        <div class="message">{{ message }}</div>
+    {% endif %}
     <button class="button" onclick="showHint()">Show Hint</button>
     <p id="hint" style="display:none;">{{ flashcard.hint }}</p>
     <div class="button-container">

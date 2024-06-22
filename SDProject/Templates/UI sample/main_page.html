@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FC Learning</title>
+    <style>
+        body {
+            background-color: #d6b5ec;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        h1 {
+            color: purple;
+        }
+        h2 {
+            color: black;
+        }
+        h3 {
+            color: gray;
+        }
+        .button {
+            margin: 10px;
+            padding: 10px;
+            background-color: #8a4ff8;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>FC Learning</h1>
+    <h2>LEARN THE EASY WAY!</h2>
+    <h3>CREATE | SAVE | REVISE</h3>
+    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning" style="width: 300px; height: auto;">
+    <div>
+        <button class="button" onclick="location.href=quot;{{ url_for('process_page') }}quot;">Find the Process Here</button>
+        <button class="button" onclick="location.href=quot;{{ url_for('create_set') }}quot;">Create Flashcard</button>
+        <button class="button" onclick="location.href=quot;{{ url_for('select_set') }}quot;">Find Flashcard Set</button>
+    </div>
+</body>
+</html>
