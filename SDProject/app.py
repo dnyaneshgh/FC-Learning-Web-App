@@ -48,14 +48,11 @@ def createQuestion():
     mydb.commit()
     return jsonify(data), 201
 
-def learningMode():
-    # show Question
-    # receive Answer
-    # cross check answer
-    # Show comment
-    #
-
-
+# def learningMode():
+#     # show Question
+#     # receive Answer
+#     # cross check answer
+#     # Add
 
 if __name__ == '__main__':
     app.run(debug=True)

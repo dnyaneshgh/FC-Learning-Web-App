@@ -44,6 +44,12 @@
     {% for set in sets %}
         <a class="button" href="{{ url_for('fc_use', index=0) }}">{{ set }}</a>
     {% endfor %}
+    <div class="input-container">
+        <form method="post" action="{{ url_for('fc_use', index=0) }}">{{set}}
+            <input type="text" name="set" placeholder="Enter selected set">
+            <button class="button" type="submit" style="margin-left: 10px;">Submit</button>
+        </form>
+    </div>
     <a class="button" href="{{ url_for('main_page') }}">Back to Home</a>
 </body>
 </html>
