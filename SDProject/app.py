@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, render_template, url_for, redirect, request, jsonify
 from flask_restful import Resource, Api
 from flasgger import Swagger
 import mysql.connector
@@ -15,44 +15,86 @@ mydb = mysql.connector.connect(
 )
 crsr = mydb.cursor()
 
+# Sample data to simulate created sets and flashcards
+topic = ""
+sql_command = "SELECT Topic FROM Questions GROUP BY Topic"
+crsr.execute(sql_command)
+myresult = crsr.fetchall()
+flashcards = []
 
 @app.route('/')
-def home():
-    title = 'Welcome to Our Website!'
-    return render_template('home.html', title=title)
+def main_page():
+    return render_template('main_page.html')
 
+@app.route('/process')
+def process_page():
+    return render_template('process_page.html')
 
-@app.route('/about/')
-def about():
-    title = 'About Us'
-    return render_template('about.html', title=title)
+@app.route('/create_set', methods=['GET', 'POST'])
+def create_set():
+    if request.method == 'POST':
+        set_name = request.form['set_name']
+        if set_name not in myresult:
+            topic = set_name
+        return redirect(url_for('create_fc', topic=topic))
+    return render_template('create_set.html')
 
-# getting the TopicWise Questions
-@app.route("/getTopicQuestions/<topic>")
-def getTopicQuestion(topic):
-    sql_command = "SELECT * FROM Questions WHERE Topic = %s"
-    val= [topic]
-    crsr.execute(sql_command, val)
+@app.route('/create_fc', methods=['GET', 'POST'])
+def create_fc():
+    global topic
+    if request.method == 'POST':
+        topic = request.form['topic']
+        question = request.form['question']
+        answer = request.form['answer']
+        hint = request.form.get('hint', '')  # Hint is optional
+        flashcards.append({'topic': topic, 'question': question, 'answer': answer, 'hint': hint})
+
+        sql_command = "INSERT INTO Questions(Topic, Question, Answer, Hint) VALUES (%s, %s, %s, %s)"
+        val = (topic, question, answer, hint)
+        crsr.execute(sql_command, val)
+        mydb.commit()
+
+        return render_template('create_fc.html', flashcard_count=len(flashcards) + 1, topic=topic)
+    return render_template('create_fc.html', flashcard_count=1, topic=topic)
+
+@app.route('/select_set')
+def select_set():
+    sql_command = "SELECT Topic FROM Questions GROUP BY Topic"
+    crsr.execute(sql_command)
     myresult = crsr.fetchall()
-    # adding the Function to learn
-    return myresult, 200
-    
+    return render_template('select_set.html', sets=myresult)
 
-#To create a Questions
-@app.route('/createQuestion/', methods=['Post'])
-def createQuestion():
-    data = request.get_json()
-    sql_command = "INSERT INTO Questions VALUES (%s, %s, %s, %s, %s)"
-    val = (data['ID'],data['Topic'], data['Question'],data['Answer'],data['Hint'])
+@app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
+def fc_use(index):
+    global topic
+    sql_command = "SELECT * FROM Questions WHERE Topic = %s"
+    val = [topic]
     crsr.execute(sql_command, val)
-    mydb.commit()
-    return jsonify(data), 201
+    data = crsr.fetchall()
 
-# def learningMode():
-#     # show Question
-#     # receive Answer
-#     # cross check answer
-#     # Add
+    if len(flashcards) == 0: 
+        for item in data:
+            flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
+
+    if not flashcards:
+        return redirect(url_for('create_fc'))
+
+    flashcard = flashcards[index]
+    total_cards = len(flashcards)
+    message = None
+
+    if request.method == 'POST':
+        user_answer = request.form['answer']
+        if user_answer.lower() == flashcard['answer'].lower():
+            message = "Correct!"
+        else:
+            message = "Wrong answer. Try again!"
+            flashcards.append(flashcard)
+
+    next_index = (index + 1) % total_cards
+    prev_index = (index - 1 + total_cards) % total_cards
+
+    return render_template('fc_use.html', flashcard=flashcard, current_index=index, next_index=next_index, prev_index=prev_index, total_cards=total_cards, message=message, topic=topic)
 
 if __name__ == '__main__':
     app.run(debug=True)
