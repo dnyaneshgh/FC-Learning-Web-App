@@ -58,7 +58,8 @@
     </style>
 </head>
 <body>
-    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
+    <div>
+        <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
     <h1>Create Flashcard {{ flashcard_count }}</h1>
     <h3>Enter your question, answer, and hint (optional)</h3>
     <form method="post" action="{{ url_for('create_fc') }}" class="input-container">
@@ -69,5 +70,8 @@
         <button class="button" type="submit">Save</button>
     </form>
     <a class="button bottom-button" href="{{ url_for('main_page') }}">Back to Home</a>
+
+    </div>
+    
 </body>
 </html>
