@@ -186,31 +186,45 @@
     </nav>
     <div class="main-container">
       <div>
-        <a class="button small-button" href="{{ url_for('fc_use', index=prev_index) }}" style="font-size: 14px;">&lt;</a>
-
+        <a
+          class="button small-button"
+          href="{{ url_for('fc_use', index=prev_index) }}"
+          style="font-size: 14px"
+          >&lt;</a
+        >
       </div>
       <div class="flashcard-content">
         <h1>{{ topic }}</h1>
         <h3>{{ flashcard.question }}</h3>
         <div class="input-container">
-          <form method="post" action="{{ url_for('fc_use', index=current_index) }}">
-            <input type="text" name="answer" placeholder="Enter your answer">
-            <button class="button" type="submit" style="margin-left: 10px;">Submit</button>
+          <form
+            method="post"
+            action="{{ url_for('fc_use', index=current_index) }}"
+          >
+            <input type="text" name="answer" placeholder="Enter your answer" />
+            <button class="button" type="submit" style="margin-left: 10px">
+              Submit
+            </button>
           </form>
         </div>
         {% if message %}
         <div class="message">{{ message }}</div>
         {% endif %}
         <button class="button" onclick="showHint()">Show Hint</button>
-        <p id="hint" style="display:none;">{{ flashcard.hint }}</p>
+        <p id="hint" style="display: none">{{ flashcard.hint }}</p>
       </div>
-      <div style="">
-        <a class="button small-button" href="{{ url_for('fc_use', index=next_index) }}" style="font-size: 14px;">&gt;</a>
+      <div style="margin-right: 2rem">
+        <a
+          class="button small-button"
+          href="{{ url_for('fc_use', index=next_index) }}"
+          style="font-size: 14px"
+          >&gt;</a
+        >
       </div>
     </div>
     <script>
       function showHint() {
-        document.getElementById('hint').style.display = 'block';
+        document.getElementById("hint").style.display = "block";
       }
     </script>
   </body>
