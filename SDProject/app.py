@@ -47,7 +47,7 @@ def create_fc():
         question = request.form['question']
         answer = request.form['answer']
         hint = request.form.get('hint', '')  # Hint is optional
-        flashcards.append({'topic': topic, 'question': question, 'answer': answer, 'hint': hint})
+        # flashcards.append({'topic': topic, 'question': question, 'answer': answer, 'hint': hint})
 
         sql_command = "INSERT INTO Questions(Topic, Question, Answer, Hint) VALUES (%s, %s, %s, %s)"
         val = (topic, question, answer, hint)
@@ -62,19 +62,21 @@ def select_set():
     sql_command = "SELECT Topic FROM Questions GROUP BY Topic"
     crsr.execute(sql_command)
     myresult = crsr.fetchall()
-    return render_template('select_set.html', sets=myresult)
+    string_list = [item[0] for item in myresult]
+    return render_template('select_set.html', sets=string_list)
 
 @app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
 def fc_use(index):
-    global topic
+    topic = "Literature"
+    print("The ropic is ",topic)
     sql_command = "SELECT * FROM Questions WHERE Topic = %s"
     val = [topic]
     crsr.execute(sql_command, val)
     data = crsr.fetchall()
-
-    if len(flashcards) == 0: 
-        for item in data:
-            flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
+    print(data)
+    # if len(flashcards) == 0: 
+    for item in data:
+        flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
 
     if not flashcards:
         return redirect(url_for('create_fc'))
