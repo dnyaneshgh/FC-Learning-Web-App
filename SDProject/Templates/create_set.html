@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Set</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning">
+    <h1>Create Set Page</h1>
+    <h3>Your personalized flashcard sets</h3>
+    <p>This is the create set page.</p>
+    <form method="post" action="{{ url_for('create_set') }}" class="input-container">
+        <input type="text" name="set_name" placeholder="Enter set name">
+        <button class="button" type="submit">Save</button>
+    </form>
+    <a class="button small-button" href="{{ url_for('main_page') }}">Back to Home</a>
+</body>
+</html>

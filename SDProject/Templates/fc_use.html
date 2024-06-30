@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard Use</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning Logo">
+            <h1>FC Learning</h1>
+        </div>
+        <div class="nav-right">
+            <a href="/">Home</a>
+            <a href="/create_fc">Create Flashcard</a>
+            <a href="/select_set">Find Flashcard</a>
+        </div>
+    </nav>
+    <div class="main-container">
+        <div>
+            <a class="button small-button" href="{{ url_for('fc_use', index=prev_index) }}">&lt;</a>
+        </div>
+        <div class="flashcard-content">
+            <h1>{{ topic }}</h1>
+            <h3>{{ flashcard.question }}</h3>
+            <div class="input-container">
+                <form method="post" action="{{ url_for('fc_use', index=current_index) }}">
+                    <input type="text" name="answer" placeholder="Enter your answer">
+                    <button class="button" type="submit" style="margin-left: 10px">Submit</button>
+                </form>
+            </div>
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            <button class="button" onclick="showHint()">Show Hint</button>
+            <p id="hint" style="display: none">{{ flashcard.hint }}</p>
+        </div>
+        <div>
+            <a class="button small-button" href="{{ url_for('fc_use', index=next_index) }}">&gt;</a>
+        </div>
+    </div>
+    <script>
+        function showHint() {
+            document.getElementById("hint").style.display = "block";
+        }
+    </script>
+</body>
+</html>
