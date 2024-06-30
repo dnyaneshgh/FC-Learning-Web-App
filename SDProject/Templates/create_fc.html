@@ -8,15 +8,18 @@
 </head>
 <body>
     <nav>
-        <div class="nav-left">
-            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning Logo">
-            <h1>FC Learning</h1>
-        </div>
-        <div class="nav-right">
-            <a href="/">Home</a>
-            <a href="create_fc" class="active">Create Flashcard</a>
-            <a href="select_set">Find Flashcard</a>
-        </div>
+      <div class="nav-left">
+        <img
+          src="{{ url_for('static', filename='FC_image1.png') }}"
+          alt="FC Learning Logo"
+        />
+        <h1>FC Learning</h1>
+      </div>
+      <div class="nav-right">
+        <a href="/">Home</a>
+        <a href="create_fc" class="active">Create Flashcard</a>
+        <a href="select_set">Find Set</a>
+      </div>
     </nav>
     <div class="main-container">
         <h1>Create Flashcard {{ flashcard_count }}</h1>
