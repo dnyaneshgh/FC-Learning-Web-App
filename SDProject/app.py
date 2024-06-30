@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, session, url_for, redirect, request, jsonify
 from flask_restful import Resource, Api
 from flasgger import Swagger
 import mysql.connector
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 api = Api(app)
 swagger = Swagger(app)
 
@@ -64,15 +65,17 @@ def select_set():
     string_list = [item[0] for item in myresult]
     return render_template('select_set.html', sets=string_list)
 
-flag =0
+global topic1
 
 @app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
 def fc_use(index):
-    selected_index = request.args.get('index', type=int, default=0)
-    
-    tempTopic = myresult[int(selected_index)]
-    topic = tempTopic[0]
-
+    if(request.args.get('index')):
+        selected_index = request.args.get('index', type=int, default=0)
+        tempTopic = myresult[int(selected_index)]
+        topic = tempTopic[0]
+        topic1=topic
+    else:
+        topic = session.get('topic', 'default_topic_value')
     # topic = "Literature"
     print("The topic is ",topic)
     sql_command = "SELECT * FROM Questions WHERE Topic = %s"
