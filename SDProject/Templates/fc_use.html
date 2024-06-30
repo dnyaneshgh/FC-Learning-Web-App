@@ -1,231 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flashcard Use</title>
-    <style>
-      @font-face {
-        font-family: "Castellar";
-        src: url("Castellar.ttf"); /* Ensure this path is correct */
-      }
-      @font-face {
-        font-family: "Footlight MT Light";
-        src: url("FootlightMTLight.ttf"); /* Ensure this path is correct */
-      }
-
-      body {
-        background: linear-gradient(45deg, #8bb3dc, #665de0);
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding-top: 50px;
-        margin: 0; /* Ensure no margin causes issues */
-        height: 98vh; /* Ensure gradient covers the full height */
-      }
-      .button {
-        margin: 0.625rem;
-        padding: 0.625rem;
-        background-color: #8a4ff8;
-        color: white;
-        border: none;
-        font-size: 1rem;
-        cursor: pointer;
-        text-decoration: none;
-        border-radius: 0.3125rem;
-      }
-      .input-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 1.25rem;
-        box-sizing: border-box;
-      }
-      input[type="text"] {
-        margin: 0.625rem;
-        padding: 0.625rem;
-        font-size: 1rem;
-        width: 80%;
-        max-width: 18.75rem;
-        border: 1px solid #ccc;
-        border-radius: 0.3125rem;
-      }
-      h2 {
-        font-family: "Candara", sans-serif;
-        font-size: 35px;
-        color: black;
-        margin-top: 35px; /* Adjust this value to position below the title */
-      }
-      h3 {
-        font-family: "Candara", sans-serif;
-        font-size: 23px;
-        color: rgb(40, 8, 40);
-      }
-      .button {
-        font-family: "Arial Rounded MT", sans-serif;
-        font-weight: 1000;
-        margin: 5px;
-        background-color: #8a4ff8;
-        color: rgb(40, 8, 40);
-        border: rgb(40, 8, 40);
-        border: 2px solid;
-        font-size: 22px;
-        cursor: pointer;
-        text-decoration: none;
-        border-radius: 15px;
-      }
-      .top-right-button {
-        font-family: "Roboto", sans-serif;
-        font-weight: bold;
-        margin: 10px;
-        padding: 15px;
-        position: absolute;
-        top: 20px;
-        right: 10px;
-        background-color: black;
-        color: white;
-        border: none;
-        font-size: 16px;
-        cursor: pointer;
-        text-decoration: none;
-        border-radius: 15px;
-      }
-      .container {
-        margin-top: 100px; /* Adjust this value to position below the title */
-      }
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background-color: #7825f8;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 1000;
-      }
-      .nav-left {
-        display: flex;
-        align-items: center;
-      }
-      .nav-left img {
-        width: 50px;
-        height: auto;
-        margin-left: 1rem;
-      }
-      .nav-left h1 {
-        font-size: 24px;
-        color: white;
-        margin-left: 10px;
-        text-shadow: none;
-        position: static;
-      }
-      .nav-right a {
-        color: white;
-        text-decoration: none;
-        margin: 0 15px;
-        font-size: 18px;
-      }
-      .nav-right a.active {
-        border-bottom: 2px solid white;
-      }
-      .content {
-        background-color: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        margin-left: 2rem;
-      }
-      .main-container {
-        margin: 1rem;
-        margin-top: 4rem;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%; /* Ensure the container takes full width */
-        box-sizing: border-box; /* Include padding and border in element's total width and height */
-      }
-      .button-container {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        padding: 0 20px;
-      }
-      .small-button {
-        font-size: 16px;
-        padding: 10px;
-        margin: 20px; /* Reduce margin */
-      }
-      .message {
-        font-family: "Candara", sans-serif;
-        font-size: 20px;
-        color: red; /* You can change the color based on the message */
-        margin-top: 20px;
-      }
-      .flashcard-content {
-        flex-grow: 1; /* Allow the content to take remaining space */
-        text-align: center;
-        margin: 0 20px;
-      }
-    </style>
-  </head>
-  <body>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
     <nav>
-      <div class="nav-left">
-        <img
-          src="{{ url_for('static', filename='FC_image1.png') }}"
-          alt="FC Learning Logo"
-        />
-        <h1>FC Learning</h1>
-      </div>
-      <div class="nav-right">
-        <a href="/">Home</a>
-        <a href="create_fc">Create Flashcard</a>
-        <a href="select_set">Find Flashcard</a>
-      </div>
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning Logo">
+            <h1>FC Learning</h1>
+        </div>
+        <div class="nav-right">
+            <a href="/">Home</a>
+            <a href="/create_fc">Create Flashcard</a>
+            <a href="/select_set">Find Flashcard</a>
+        </div>
     </nav>
     <div class="main-container">
-      <div>
-        <a
-          class="button small-button"
-          href="{{ url_for('fc_use', index=prev_index) }}"
-          style="font-size: 14px"
-          >&lt;</a
-        >
-      </div>
-      <div class="flashcard-content">
-        <h1>{{ topic }}</h1>
-        <h3>{{ flashcard.question }}</h3>
-        <div class="input-container">
-          <form
-            method="post"
-            action="{{ url_for('fc_use', index=current_index) }}"
-          >
-            <input type="text" name="answer" placeholder="Enter your answer" />
-            <button class="button" type="submit" style="margin-left: 10px">
-              Submit
-            </button>
-          </form>
+        <div>
+            <a class="button small-button" href="{{ url_for('fc_use', index=prev_index) }}">&lt;</a>
         </div>
-        {% if message %}
-        <div class="message">{{ message }}</div>
-        {% endif %}
-        <button class="button" onclick="showHint()">Show Hint</button>
-        <p id="hint" style="display: none">{{ flashcard.hint }}</p>
-      </div>
-      <div style="margin-right: 2rem">
-        <a
-          class="button small-button"
-          href="{{ url_for('fc_use', index=next_index) }}"
-          style="font-size: 14px"
-          >&gt;</a
-        >
-      </div>
+        <div class="flashcard-content">
+            <h1>{{ topic }}</h1>
+            <h3>{{ flashcard.question }}</h3>
+            <div class="input-container">
+                <form method="post" action="{{ url_for('fc_use', index=current_index) }}">
+                    <input type="text" name="answer" placeholder="Enter your answer">
+                    <button class="button" type="submit" style="margin-left: 10px">Submit</button>
+                </form>
+            </div>
+            {% if message %}
+            <div class="message">{{ message }}</div>
+            {% endif %}
+            <button class="button" onclick="showHint()">Show Hint</button>
+            <p id="hint" style="display: none">{{ flashcard.hint }}</p>
+        </div>
+        <div>
+            <a class="button small-button" href="{{ url_for('fc_use', index=next_index) }}">&gt;</a>
+        </div>
     </div>
     <script>
-      function showHint() {
-        document.getElementById("hint").style.display = "block";
-      }
+        function showHint() {
+            document.getElementById("hint").style.display = "block";
+        }
     </script>
-  </body>
+</body>
 </html>
