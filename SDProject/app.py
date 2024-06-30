@@ -46,8 +46,7 @@ def create_fc():
         topic = request.form['topic']
         question = request.form['question']
         answer = request.form['answer']
-        hint = request.form.get('hint', '')  # Hint is optional
-        # flashcards.append({'topic': topic, 'question': question, 'answer': answer, 'hint': hint})
+        hint = request.form.get('hint', '')
 
         sql_command = "INSERT INTO Questions(Topic, Question, Answer, Hint) VALUES (%s, %s, %s, %s)"
         val = (topic, question, answer, hint)
@@ -65,16 +64,23 @@ def select_set():
     string_list = [item[0] for item in myresult]
     return render_template('select_set.html', sets=string_list)
 
+flag =0
+
 @app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
 def fc_use(index):
-    topic = "Literature"
-    print("The ropic is ",topic)
+    selected_index = request.args.get('index', type=int, default=0)
+    
+    tempTopic = myresult[int(selected_index)]
+    topic = tempTopic[0]
+
+    # topic = "Literature"
+    print("The topic is ",topic)
     sql_command = "SELECT * FROM Questions WHERE Topic = %s"
     val = [topic]
     crsr.execute(sql_command, val)
     data = crsr.fetchall()
     print(data)
-    # if len(flashcards) == 0: 
+    print (index)
     for item in data:
         flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
 
@@ -82,6 +88,7 @@ def fc_use(index):
         return redirect(url_for('create_fc'))
 
     flashcard = flashcards[index]
+    print(flashcard)
     total_cards = len(flashcards)
     message = None
 
