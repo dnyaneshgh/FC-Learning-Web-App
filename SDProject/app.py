@@ -1,9 +1,10 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, session, url_for, redirect, request, jsonify
 from flask_restful import Resource, Api
 from flasgger import Swagger
 import mysql.connector
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
 api = Api(app)
 swagger = Swagger(app)
 
@@ -46,8 +47,7 @@ def create_fc():
         topic = request.form['topic']
         question = request.form['question']
         answer = request.form['answer']
-        hint = request.form.get('hint', '')  # Hint is optional
-        flashcards.append({'topic': topic, 'question': question, 'answer': answer, 'hint': hint})
+        hint = request.form.get('hint', '')
 
         sql_command = "INSERT INTO Questions(Topic, Question, Answer, Hint) VALUES (%s, %s, %s, %s)"
         val = (topic, question, answer, hint)
@@ -62,24 +62,36 @@ def select_set():
     sql_command = "SELECT Topic FROM Questions GROUP BY Topic"
     crsr.execute(sql_command)
     myresult = crsr.fetchall()
-    return render_template('select_set.html', sets=myresult)
+    string_list = [item[0] for item in myresult]
+    return render_template('select_set.html', sets=string_list)
+
+global topic1
 
 @app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
 def fc_use(index):
-    global topic
+    if(request.args.get('index')):
+        selected_index = request.args.get('index', type=int, default=0)
+        tempTopic = myresult[int(selected_index)]
+        topic = tempTopic[0]
+        topic1=topic
+    else:
+        topic = session.get('topic', 'default_topic_value')
+    # topic = "Literature"
+    print("The topic is ",topic)
     sql_command = "SELECT * FROM Questions WHERE Topic = %s"
     val = [topic]
     crsr.execute(sql_command, val)
     data = crsr.fetchall()
-
-    if len(flashcards) == 0: 
-        for item in data:
-            flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
+    print(data)
+    print (index)
+    for item in data:
+        flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
 
     if not flashcards:
         return redirect(url_for('create_fc'))
 
     flashcard = flashcards[index]
+    print(flashcard)
     total_cards = len(flashcards)
     message = None
 
