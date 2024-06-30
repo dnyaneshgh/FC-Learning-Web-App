@@ -140,6 +140,21 @@
         margin: 1rem;
         margin-top: 4rem;
       }
+      .dropdown-container {
+        margin: 2rem auto;
+        width: fit-content;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      select {
+        margin: 0.625rem;
+        padding: 0.625rem;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 0.3125rem;
+        cursor: pointer;
+      }
     </style>
   </head>
   <body>
@@ -156,9 +171,16 @@
     </nav>
     <div class="main-container">
       <h1>Select Set</h1>
-      {% for set in sets %}
-      <a class="button" href="{{ url_for('fc_use', index=0) }}">{{ set }}</a>
-      {% endfor %}
+      <div class="dropdown-container">
+        <form action="{{ url_for('fc_use', index=0) }}" method="get">
+          <select name="index">
+            {% for set in sets %}
+            <option value="{{ loop.index0 }}">{{ set }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="button">Select</button>
+        </form>
+      </div>
     </div>
 </body>
 </html>
