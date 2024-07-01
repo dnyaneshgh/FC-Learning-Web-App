@@ -1,0 +1,11 @@
+- dockerfile : python packages -> 
+- dockercompose : 2 container -> flask and MySQL
+- run.bat & run.sh : starts the docker, bat->window, sh->Linux/mac
+
+################
+- No database in Mysql container 
+- Table formation
+- SQLite/MySQL -> file in SQLite, MySQL in python
+
+################
+- 

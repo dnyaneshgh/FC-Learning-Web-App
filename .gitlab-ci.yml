@@ -1,0 +1,17 @@
+stages:
+  - build
+
+image: gitlab/dind
+
+services:
+  - docker:dind
+
+build:
+  stage: build
+  script:
+    - docker-compose -f docker-compose.yaml build
+    - docker-compose -f docker-compose.yaml up -d
+  only:
+    - branches
+
+

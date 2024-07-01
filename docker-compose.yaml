@@ -1,0 +1,32 @@
+version: '2.0'
+
+services:
+  flashcard-app:
+    build: ./SDProject
+    command: sh -c "chmod +x ./serve.sh ; ./serve.sh" 
+    ports:
+      - "5000:5000"
+    environment:
+      - NAME=World
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=Flashcard
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=Darshana@1310
+    depends_on:
+      - mysql:
+          condition: service_healthy
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql_server
+    environment:
+      MYSQL_ROOT_PASSWORD: Darshana@1310
+      MYSQL_DATABASE: Flashcard
+      # MYSQL_USER: mysql
+      MYSQL_PASSWORD: Darshana@1310
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
