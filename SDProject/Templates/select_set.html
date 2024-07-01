@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Find Flashcard</title>
     <style>
       @font-face {
@@ -159,15 +159,18 @@
   </head>
   <body>
     <nav>
-        <div class="nav-left">
-            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning Logo">
-            <h1>FC Learning</h1>
-        </div>
-        <div class="nav-right">
-            <a href="/">Home</a>
-            <a href="create_fc">Create Flashcard</a>
-            <a href="select_set" class="active">Find Flashcard</a>
-        </div>
+      <div class="nav-left">
+        <img
+          src="{{ url_for('static', filename='FC_image1.png') }}"
+          alt="FC Learning Logo"
+        />
+        <h1>FC Learning</h1>
+      </div>
+      <div class="nav-right">
+        <a href="/">Home</a>
+        <a href="create_fc">Create Flashcard</a>
+        <a href="select_set" class="active">Find Set</a>
+      </div>
     </nav>
     <div class="main-container">
       <h1>Select Set</h1>
@@ -182,5 +185,5 @@
         </form>
       </div>
     </div>
-</body>
+  </body>
 </html>

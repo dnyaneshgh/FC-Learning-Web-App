@@ -4,39 +4,181 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FC Learning</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <style>
+      @font-face {
+        font-family: "Castellar";
+        src: url("Castellar.ttf"); /* Ensure this path is correct */
+      }
+      @font-face {
+        font-family: "Footlight MT Light";
+        src: url("FootlightMTLight.ttf"); /* Ensure this path is correct */
+      }
+
+      body {
+        background: linear-gradient(45deg, #8bb3dc, #665de0);
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding-top: 50px;
+        margin: 0; /* Ensure no margin causes issues */
+        height: 98vh; /* Ensure gradient covers the full height */
+      }
+      h1 {
+        font-family: "Arial Rounded MT", serif;
+        color: rgb(179, 105, 224);
+
+        padding: 10px;
+        position: absolute;
+        top: -20px;
+        left: 60px;
+        font-size: 60px;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+          1px 1px 0 #000;
+      }
+      h2 {
+        font-family: "Candara", sans-serif;
+        font-size: 35px;
+        color: black;
+        margin-top: 35px; /* Adjust this value to position below the title */
+      }
+      h3 {
+        font-family: "Candara", sans-serif;
+        font-size: 23px;
+        color: rgb(40, 8, 40);
+      }
+      .button {
+        font-family: "Arial Rounded MT", sans-serif;
+        font-weight: 1000;
+        margin: 5px;
+        padding: 20px;
+        background-color: #8a4ff8;
+        color: rgb(40, 8, 40);
+        border: rgb(40, 8, 40);
+        border: 2px solid;
+        font-size: 22px;
+        cursor: pointer;
+        text-decoration: none;
+        border-radius: 15px;
+      }
+      .top-right-button {
+        font-family: "Roboto", sans-serif;
+        font-weight: bold;
+        margin: 10px;
+        padding: 15px;
+        position: absolute;
+        top: 20px;
+        right: 10px;
+        background-color: black;
+        color: white;
+        border: none;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        border-radius: 15px;
+      }
+      .container {
+        margin-top: 100px; /* Adjust this value to position below the title */
+      }
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #7825f8;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+      }
+      .nav-left {
+        display: flex;
+        align-items: center;
+      }
+      .nav-left img {
+        width: 50px;
+        height: auto;
+        margin-left: 1rem;
+      }
+      .nav-left h1 {
+        font-size: 24px;
+        color: white;
+        margin-left: 10px;
+        text-shadow: none;
+        position: static;
+      }
+      .nav-right a {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 18px;
+      }
+      .nav-right a.active {
+        border-bottom: 2px solid white;
+      }
+      .content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        margin-left: 2rem;
+        width: 35rem;
+        height: 26rem;
+      }
+      .main-container {
+        display: flex;
+        margin: 1rem;
+        margin-top: 4rem;
+        justify-content: space-evenly;
+      }
+    </style>
+  </head>
+  <body>
     <nav>
-        <div class="nav-left">
-            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning Logo">
-            <h1>FC Learning</h1>
-        </div>
-        <div class="nav-right">
-            <a href="/" class="active">Home</a>
-            <a href="create_fc">Create Flashcard</a>
-            <a href="select_set">Find Flashcard</a>
-        </div>
+      <div class="nav-left">
+        <img
+          src="{{ url_for('static', filename='FC_image1.png') }}"
+          alt="FC Learning Logo"
+        />
+        <h1>FC Learning</h1>
+      </div>
+      <div class="nav-right">
+        <a href="/" class="active">Home</a>
+        <a href="create_fc">Create Flashcard</a>
+        <a href="select_set">Find Set</a>
+      </div>
     </nav>
     <div class="main-container">
-        <div>
-            <h2>LEARN THE EASY WAY!</h2>
-            <h3>CREATE | SAVE | REVISE</h3>
-            <img src="{{ url_for('static', filename='FC_image1.png') }}" alt="FC Learning" style="width: 350px; height: auto;">
-        </div>
-        <div class="content">
-            <h3>Step-by-Step Process</h3>
-            <p>1. Start by clicking on the "Create Set" button.</p>
-            <p>2. Enter a relevant name for your set.</p>
-            <p>3. Save the set.</p>
-            <p>4. Enter the number of questions for the set, along with their respective answers and optional hints, then save.</p>
-            <p>5. Use the "Find Set" button to locate your saved set.</p>
-            <p>6. Click on the desired set to open it.</p>
-            <p>7. This will take you to the flashcard view, where cards are shown one by one.</p>
-            <p>8. If you saved any hints, click the "Hint" button to view them.</p>
-            <p>9. Navigate through the questions using the "Next" or "Previous" buttons.</p>
-            <p>10. To return to the home page, click the "Back" button.</p>
-        </div>
+      <div>
+        <h2>LEARN THE EASY WAY!</h2>
+        <h3>CREATE | SAVE | REVISE</h3>
+        <img
+          src="{{ url_for('static', filename='FC_image1.png') }}"
+          alt="FC Learning"
+          style="width: 350px; height: auto"
+        />
+      </div>
+      <div class="content">
+        <h3>Step-by-Step Process</h3>
+        <p>1. Start by clicking on "Create Flashcard" tab</p>
+        <p>
+          2. If you want to creat a set of flashcards,Enter the same set name for each flashcard
+          <p>
+            3. Enter the details for the flashcard, then save it. Adding a hint is
+            optional
+          </p>
+        </p>
+        <p>3. Click on "Find Set" to locate your saved Sets</p>
+        <p>4. Click on the desired set to open it</p>
+        <p>
+          5. This will take you to the flashcard view, where cards are shown one
+          by one
+        </p>
+        <p>6. Navigate through the flashcard using the "&lt;" or "&gt;" buttons</p>
+        <p>
+          7. If you saved any hint, click the "Hint" button to view it
+        </p>
+        <p>8. To return to the home page, click the "Home" tab</p>
+      </div>
     </div>
 </body>
 </html>
