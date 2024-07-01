@@ -11,7 +11,7 @@ swagger = Swagger(app)
 mydb = mysql.connector.connect(
   host="localhost",
   user="root",
-  password="Darshana@1310",
+  password="Saee*1012",
   database="FlashCard"
 )
 crsr = mydb.cursor()
@@ -65,25 +65,22 @@ def select_set():
     string_list = [item[0] for item in myresult]
     return render_template('select_set.html', sets=string_list)
 
-global topic1
-
 @app.route('/fc_use/<int:index>', methods=['GET', 'POST'])
 def fc_use(index):
-    if(request.args.get('index')):
+    global flashcards
+    flashcards = []  # Clear the flashcards list
+    if 'index' in request.args:
         selected_index = request.args.get('index', type=int, default=0)
-        tempTopic = myresult[int(selected_index)]
-        topic = tempTopic[0]
-        topic1=topic
+        topic = myresult[int(selected_index)][0]
+        session['topic'] = topic
     else:
         topic = session.get('topic', 'default_topic_value')
-    # topic = "Literature"
-    print("The topic is ",topic)
+    
     sql_command = "SELECT * FROM Questions WHERE Topic = %s"
     val = [topic]
     crsr.execute(sql_command, val)
     data = crsr.fetchall()
-    print(data)
-    print (index)
+
     for item in data:
         flashcards.append({'topic': item[1], 'question': item[2], 'answer': item[3], 'hint': item[4]})
 
@@ -91,7 +88,6 @@ def fc_use(index):
         return redirect(url_for('create_fc'))
 
     flashcard = flashcards[index]
-    print(flashcard)
     total_cards = len(flashcards)
     message = None
 
